@@ -1,0 +1,163 @@
+openapi: 3.0.4
+info:
+  title: Auth Service
+  description: |-
+    Handle authentication and token issuance (JWT)
+  contact:
+    email: piotr.masior@outlook.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+  #externalDocs:
+  #description: Find out more about Swagger
+  #url: https://swagger.io
+servers:
+  - url: https://{server-url}/api/v1
+    variables:
+      server-url:
+        default: "localhost:8080"
+
+paths:
+  /auth/login:
+    post:
+      summary: Logs user into the system.
+      description: Authenticate user and return JWT
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: successful authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JwtTokenResponse'
+        '401':
+          description: Invalid credential
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthError"
+        '403':
+          description: User disabled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthError"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthError"
+  /auth/logout:
+    post:
+      summary: Logs out current logged in user session.
+      description: Invalidate current JWT token
+      operationId: logoutUser
+      security:
+        - BearerAuth: []
+      responses:
+        '204':
+          description: Successfully logged out
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthError"
+  /auth/refresh:
+    post:
+      summary: Refresh token – new token without login again
+      description: New JWT token issued
+      operationId: refreshToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: New JWT token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JwtTokenResponse'
+        '400':
+          description: Invalid jwt token
+        '401':
+          description: Expired refresh jwt token
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthError"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: john@email.com
+        password:
+          type: string
+          format: password
+          example: "P@ssw0rd!"
+      required:
+        - email
+        - password
+    JwtTokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          format: jwt
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        tokenType:
+          type: string
+          example: "Bearer"
+        expiresIn:
+          type: integer
+          format: int64
+          example: 3600
+      required:
+        - accessToken
+        - tokenType
+    RefreshTokenRequest:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          format: jwt
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      required:
+        - refreshToken
+
+    AuthError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
