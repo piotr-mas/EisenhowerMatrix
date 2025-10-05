@@ -2,7 +2,6 @@ package com.piotr.matrix.auth.exception;
 
 import com.piotr.matrix.auth.generated.model.AuthError;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
