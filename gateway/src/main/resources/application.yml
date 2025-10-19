@@ -31,7 +31,7 @@ server:
     trust-store-password: changeit
     trust-store-type: JKS
     # Enforce client authentication - mTLS
-    client-auth: need
+    client-auth: none
 
 # Externalize the JWT Secret. For production use environment variables or a secrets manager
 jwt:

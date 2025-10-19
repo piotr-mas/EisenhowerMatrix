@@ -1,0 +1,173 @@
+openapi: 3.1.0
+info:
+  title: User Service
+  description: Handle User Service
+  version: 1.0.0
+servers:
+  - url: https://{server-url}/api/v1/
+    variables:
+      server-url:
+        default: "localhost:8081"
+paths:
+  /users:
+    post:
+      summary: Register a new user
+      description: User can be register only by admin
+      operationId: registerUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserRequest'
+      responses:
+        '200':
+          description: successful registration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterUserResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserError"
+        '403':
+          description: User unauthorized to create user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserError"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserError"
+  /users/{userId}:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        description: The unique identifier of the user to retrieve
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Get all Users
+      operationId: getUser
+      responses:
+        '200':
+          description: Successfully load list of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserError"
+        '403':
+          description: User unauthorized to create user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserError"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserError"
+components:
+  schemas:
+    Role:
+      type: string
+      enum:
+        - master
+        - admin
+        - operator
+      description: Valid type of roles for User
+
+    UserName:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        firstName:
+          type: string
+          minLength: 2
+          maxLength: 20
+          example: Imie
+        lastName:
+          type: string
+          minLength: 2
+          maxLength: 20
+          example: Nazwisko
+      required:
+        - firstName
+        - lastName
+
+    UserDetails:
+      type: object
+      properties:
+        role:
+          $ref: '#/components/schemas/Role'
+        dob:
+          type: string
+          pattern: '^\\d{2}-\\d{2}-\\d{4}$'
+          description: Date of birth in format (DD-MM-YYYY)
+          example: "05-10-2025"
+        preferredQuadrant:
+          type: string
+        email:
+          type: string
+          format: email
+          example: john@email.com
+      required:
+        - roles
+        - email
+
+    RegisterUserRequest:
+      allOf:
+        - $ref: '#/components/schemas/UserName'
+        - $ref: '#/components/schemas/UserDetails'
+
+    RegisterUserResponse:
+      type: object
+      properties:
+        userName:
+          $ref: '#/components/schemas/UserName'
+        role:
+          $ref: '#/components/schemas/Role'
+      required:
+        - userName
+        - role
+
+    UserResponse:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/UserName'
+        - $ref: '#/components/schemas/UserDetails'
+      properties:
+        createdAt:
+          type: string
+          description: The creation timestamp in the custom format HH:MM DD-MM-YYYY.
+          pattern: '^([0-1]?[0-9]|2[0-3]):[0-5][0-9]\s(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[0-2])-(\d{4})$'
+          example: "13:45 20-05-2020"
+
+    UserError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message

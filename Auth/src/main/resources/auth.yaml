@@ -13,10 +13,10 @@ info:
   #description: Find out more about Swagger
   #url: https://swagger.io
 servers:
-  - url: https://{server-url}/api/v1
+  - url: https://{server-url}
     variables:
       server-url:
-        default: "localhost:8080"
+        default: "localhost:8088"
 
 paths:
   /auth/login:

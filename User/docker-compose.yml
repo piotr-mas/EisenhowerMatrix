@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: my-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend-net
+
+  user-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: user-service-image
+    container_name: user-service-container
+    depends_on:
+      - postgres
+    ports:
+      - "8081:8081"
+    env_file:
+      - .env
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/postgres
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      KEYSTORE_PASSWORD: ${KEYSTORE_PASSWORD}
+      TRUSTSTORE_PASSWORD: ${TRUSTSTORE_PASSWORD}
+    volumes:
+      - ./src/main/resources:/app/ssl:ro
+    networks:
+      - backend-net
+
+volumes:
+  pgdata:
+
+networks:
+  backend-net:

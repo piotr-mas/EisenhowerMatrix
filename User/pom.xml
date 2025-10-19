@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.piotr.matrix</groupId>
-    <artifactId>Auth</artifactId>
+    <artifactId>User</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Auth</name>
-    <description>Auth</description>
+    <name>User</name>
+    <description>User</description>
     <url/>
     <licenses>
         <license/>
@@ -32,10 +32,6 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
@@ -50,47 +46,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.instancio</groupId>
-            <artifactId>instancio-core</artifactId>
-            <version>5.0.2</version>
-        </dependency>
-        <!-- SWAGGER -->
-        <dependency>
-            <groupId>org.openapitools</groupId>
-            <artifactId>jackson-databind-nullable</artifactId>
-            <version>0.2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-            <version>3.1.1</version>
-        </dependency>
-        <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
             <version>2.2.28</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>0.11.5</version> <!-- Use the latest stable version -->
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>0.11.5</version> <!-- Runtime dependency -->
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>0.11.5</version> <!-- For JSON processing with Jackson -->
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -102,7 +60,14 @@
             <artifactId>postgresql</artifactId>
             <version>42.7.5</version> <!-- Use latest stable version -->
         </dependency>
-
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.6</version> </dependency>
     </dependencies>
 
     <build>
@@ -138,13 +103,13 @@
                 <version>7.12.0</version>
                 <executions>
                     <execution>
-                        <id>generate-auth-api</id>
+                        <id>generate-user-api</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
                             <!--Where the yaml is located-->
-                            <inputSpec>${project.basedir}/src/main/resources/auth.yaml</inputSpec>
+                            <inputSpec>src/main/resources/userApi.yaml</inputSpec>
                             <!--Specifies the type of code generator to use-->
                             <generatorName>spring</generatorName>
                             <!--Where the generated files are located-->
@@ -163,7 +128,7 @@
                                 <interfaceOnly>true</interfaceOnly>
                                 <!--When true, it generates a separate delegate class for business logic instead of implementing logic directly in the API class.-->
                                 <!--This has event when interfaceOnly is FALSE-->
-                                <delegatePattern>false</delegatePattern>
+                                <delegatePattern>true</delegatePattern>
                                 <!--When true, API methods return ResponseEntity<T> instead of T-->
                                 <useResponseEntity>true</useResponseEntity>
                                 <useSpringBoot3>true</useSpringBoot3>

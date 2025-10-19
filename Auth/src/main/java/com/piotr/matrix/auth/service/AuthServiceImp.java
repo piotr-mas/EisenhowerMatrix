@@ -5,6 +5,7 @@ import com.piotr.matrix.auth.generated.model.JwtTokenResponse;
 import com.piotr.matrix.auth.generated.model.LoginRequest;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.*;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+@Log4j2
 @Service
 public class AuthServiceImp implements AuthService {
 
@@ -31,6 +33,7 @@ public class AuthServiceImp implements AuthService {
 
     @Override
     public JwtTokenResponse handleUserValidation(LoginRequest loginRequest) {
+        log.info("Login Request: {}. Master name {} and master pass {}", loginRequest, adminUser, adminPassword);
         if (adminUser.equals(loginRequest.getEmail()) && adminPassword.equals(loginRequest.getPassword())) {
             return jwtService.generateToken(loginRequest.getEmail(), loginRequest.getPassword(), "master");
         } else {
