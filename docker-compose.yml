@@ -1,0 +1,122 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: matrix-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    volumes:
+      - pgdata:/var/lib/postgresql
+    networks:
+      - matrix-net
+  
+  ms-gateway:
+    build:
+      context: .
+      dockerfile: ./Gateway/Dockerfile
+    image: gateway-service-image
+    container_name: gateway-service-container
+    depends_on:
+      - ms-user
+      - ms-auth
+    ports:
+      - "8080:8080" # Exposed port for clients
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      # Secrets required for the Gateway's own SSL bundle (for client and routing mTLS)
+      GATEWAY_STORE_PASSWORD: ${GATEWAY_STORE_PASSWORD}
+      GATEWAY_TRUST_PASSWORD: ${GATEWAY_TRUST_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      LOGGING_LEVEL_COM_PIOTR_MATRIX: DEBUG
+    # Volumes: Mount local SSL folder to /app/ssl inside the container
+    volumes:
+      - ./ssl:/app/ssl:ro
+    networks:
+      - matrix-net
+
+  ms-user:
+    build:
+      context: .
+      dockerfile: ./User/Dockerfile
+    image: user-service-image
+    container_name: user-service-container
+    depends_on:
+      - postgres
+    ports:
+      - "8081:8081"
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_URL: jdbc:postgresql://postgres:5432/postgres
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      KEYSTORE_PASSWORD: ${KEYSTORE_PASSWORD}
+      TRUSTSTORE_PASSWORD: ${TRUSTSTORE_PASSWORD}
+    # Volumes: Mount local SSL folder to /app/ssl inside the container
+    volumes:
+      - ./ssl:/app/ssl:ro
+    networks:
+      - matrix-net
+    
+  ms-auth:
+    build:
+      context: .
+      dockerfile: ./Auth/Dockerfile
+    image: auth-service-image
+    container_name: auth-service-container
+    depends_on:
+      - ms-user
+      - postgres
+    ports:
+      - "8088:8088" # Exposed port (or keep internal if only accessed via Gateway)
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_URL: jdbc:postgresql://postgres:5432/postgres
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      KEYSTORE_PASSWORD: ${KEYSTORE_PASSWORD}
+      TRUSTSTORE_PASSWORD: ${TRUSTSTORE_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET} # Needed for signing/verifying tokens
+    # Volumes: Mount local SSL folder to /app/ssl inside the container
+    volumes:
+      - ./ssl:/app/ssl:ro
+    networks:
+      - matrix-net
+      
+  prometheus:
+    image: prom/prometheus:v2.26.1
+    ports:
+      - 9090:9090
+    volumes:
+      - prometheus-data:/prometheus
+      - ./prometheus:/etc/prometheus
+    command: --config.file=/etc/prometheus/prometheus.yml
+    networks:
+      - matrix-net
+    
+  grafana:
+    image: grafana/grafana:7.5.6
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - matrix-net
+      
+volumes:
+  pgdata:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  matrix-net:

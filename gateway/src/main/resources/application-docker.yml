@@ -1,0 +1,14 @@
+server:
+  # Enable SSL
+  ssl:
+    # Client Keystore - contains gateway's certificate
+    key-store: file:/app/ssl/gateway-keystore.p12
+    key-store-password: ${GATEWAY_STORE_PASSWORD}
+    key-store-type: PKCS12
+    # Truststore - contains CA cert to trust UserService
+    trust-store: file:/app/ssl/gateway-truststore.jks
+    trust-store-password: ${GATEWAY_TRUST_PASSWORD}
+    trust-store-type: JKS
+    # Enforce client authentication - mTLS
+    client-auth: none
+    enabled: true

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: User Service
+    name: Auth Service
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,4 +12,12 @@ spring:
     driver-class-name: org.postgresql.Driver
 
 server:
-  port: 8081
+  port: 8088
+
+jwt:
+  expiration: 6000000
+  secret: ${JWT_SECRET}
+
+admin:
+  username: admin@matrix.com
+  password: bewrOoaRMzDByw7xz8WQYZYR43l5Gd/aAabyRLVkEyk=

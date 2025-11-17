@@ -60,7 +60,7 @@
     </build>
 
     <modules>
-        <module>gateway</module>
+        <module>Gateway</module>
         <module>Auth</module>
         <module>User</module>
     </modules>

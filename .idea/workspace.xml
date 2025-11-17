@@ -4,7 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09dd9df3-b213-4447-8a0d-a8f129c2bc98" name="Changes" comment="" />
+    <list default="true" id="09dd9df3-b213-4447-8a0d-a8f129c2bc98" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Auth/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Auth/src/main/resources/application-docker.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Auth/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/User/src/main/resources/application-docker.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/src/main/resources/application-docker.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ssl/gateway-keystore.p12" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ssl/gateway-truststore.jks" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ssl/generate-mtls.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ssl/user-keystore.p12" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ssl/user-truststore.jks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Auth/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Auth/src/main/resources/keystore.p12" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/User/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/User/docker-compose-user.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/User/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/src/main/resources/ssl/user-keystore.p12" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/src/main/resources/ssl/user-truststore.jks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/piotr/matrix/gateway/GatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/piotr/matrix/gateway/GatewayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/piotr/matrix/gateway/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/piotr/matrix/gateway/JwtAuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/piotr/matrix/gateway/config/GatewayConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/piotr/matrix/gateway/config/GatewayConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/ssl/gateway-keystore.p12" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/ssl/gateway-truststore.jks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssl/gateway-cert.cer" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssl/user-cert.cer" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,25 +44,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "piotr-mas"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;piotr-mas&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/piotr-mas/EisenhowerMatrix.git",
-    "accountId": "a593a3e4-0e7b-4189-9f41-bdfb1f673054"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/piotr-mas/EisenhowerMatrix.git&quot;,
+    &quot;accountId&quot;: &quot;a593a3e4-0e7b-4189-9f41-bdfb1f673054&quot;
   }
-}]]></component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2ze1fr2Jzo2saiKA95Ieo0IxeJR" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -39,24 +70,87 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Maven.Auth [package].executor": "Run",
+    "Maven.gateway [org.apache.maven.plugins:maven-clean-plugin:3.4.1:clean].executor": "Run",
+    "Maven.gateway [package].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/piotr/IdeaProjects/EisenhowerMatrix/Gateway/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "run.configurations.included.in.services": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\piotr\IdeaProjects\EisenhowerMatrix\Gateway\src\main\resources" />
+      <recent name="C:\Users\piotr\IdeaProjects\EisenhowerMatrix\ssl" />
+      <recent name="C:\Users\piotr\IdeaProjects\EisenhowerMatrix\User\src\main\resources" />
+      <recent name="C:\Users\piotr\IdeaProjects\EisenhowerMatrix\Auth\src\main\resources" />
+      <recent name="C:\Users\piotr\IdeaProjects\EisenhowerMatrix\Auth" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\piotr\IdeaProjects\EisenhowerMatrix\Auth\src\main\resources" />
+      <recent name="C:\Users\piotr\IdeaProjects\EisenhowerMatrix\Auth\src\main\resources\ssl" />
+      <recent name="C:\Users\piotr\IdeaProjects\EisenhowerMatrix\Gateway\src\main\resources\ssl" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.AuthApplication">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="AuthApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Auth" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.piotr.matrix.auth.AuthApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.piotr.matrix.gateway.GatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="User" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.piotr.matrix.user.UserApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
-        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
       </set>
     </attachedChunks>
   </component>
@@ -68,6 +162,8 @@
       <option name="presentableId" value="Default" />
       <updated>1752076830953</updated>
       <workItem from="1752076832252" duration="524000" />
+      <workItem from="1763292106491" duration="23848000" />
+      <workItem from="1763373313567" duration="17579000" />
     </task>
     <servers />
   </component>
