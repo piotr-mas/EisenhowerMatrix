@@ -1,0 +1,322 @@
+openapi: '3.1.0'
+info:
+  title: User Service API
+  version: '1.0.0'
+  description: User service to manage user profiles.
+servers:
+  - url: https://{gateway-host}/user
+    description: Public access to the User Service via the Gateway
+    variables:
+      gateway-host:
+        default: "localhost:8080"
+        description: The host and port of the public-facing Spring Cloud Gateway
+paths:
+  /:
+    get:
+      operationId: getAllUsers
+      summary: Get all users
+      responses:
+        '200':
+          description: List of users retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserProfile'
+        '500':
+          description: Server error
+  /{id}:
+    get:
+      operationId: getUserById
+      summary: Get user profile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: User profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '404':
+          description: User not found
+        '500':
+          description: Server error
+    put:
+      operationId: updateUserById
+      summary: Update user info
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: User info updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: User not found
+        '500':
+          description: Server error
+    delete:
+      operationId: deleteUserById
+      summary: Delete user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: User deleted successfully
+        '404':
+          description: User not found
+        '500':
+          description: Server error
+  /register:
+    post:
+      operationId: addUser
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+      responses:
+        '201':
+          description: User registered successfully
+        '400':
+          description: Invalid input
+        '500':
+          description: Server error
+  /password:
+    post:
+      operationId: getUserPassword
+      summary: Fetch user hashed password – internal API for Auth Services
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+            format: email
+      responses:
+        '200':
+          description: Token is valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLoginResponse'
+        '401':
+          description: Invalid token
+        '500':
+          description: Server error
+  /password/{id}:
+    patch:
+      operationId: changePassword
+      summary: Change password
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPasswordRequest'
+      responses:
+        '200':
+          description: Password changed successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: User not found
+        '500':
+          description: Server error
+  /email/{id}:
+    patch:
+      operationId: changeEmail
+      summary: Change email
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserEmailRequest'
+      responses:
+        '200':
+          description: Email changed successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: User not found
+        '500':
+          description: Server error
+  /role/{id}:
+    patch:
+      operationId: changeRole
+      summary: Change role
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRoleRequest'
+      responses:
+        '200':
+          description: Role changed successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: User not found
+        '500':
+          description: Server error
+components:
+  schemas:
+    Role:
+      type: string
+      enum:
+        - master
+        - admin
+        - user
+      x-enum-varnames:
+        - MASTER
+        - ADMIN
+        - USER
+
+    User:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - role
+      properties:
+        firstName:
+          type: string
+          minLength: 2
+          maxLength: 20
+        lastName:
+          type: string
+          minLength: 2
+          maxLength: 20
+        email:
+          type: string
+          format: email
+        role:
+          $ref: '#/components/schemas/Role'
+    UserProfile:
+      type: object
+      required:
+        - id
+        - user
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        user:
+          $ref: '#/components/schemas/User'
+        createdAt:
+          type: string
+          format: date-time
+    UserRegistration:
+      type: object
+      required:
+        - user
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        password:
+          type: string
+          format: password
+    UserUpdate:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+    UserPasswordRequest:
+      type: object
+      required:
+        - oldPassword
+        - newPassword
+      properties:
+        oldPassword:
+          type: string
+          minLength: 8
+          format: password
+        newPassword:
+          type: string
+          minLength: 8
+          format: password
+    UserEmailRequest:
+      type: object
+      required:
+        - oldEmail
+        - newEmail
+      properties:
+        oldEmail:
+          type: string
+          minLength: 6
+          format: email
+        newEmail:
+          type: string
+          minLength: 6
+          format: email
+    UserRoleRequest:
+      type: object
+      required:
+        - oldRole
+        - newRole
+      properties:
+        oldRole:
+          $ref: '#/components/schemas/Role'
+        newRole:
+          $ref: '#/components/schemas/Role'
+    UserLoginResponse:
+      type: object
+      required:
+        - password
+        - role
+      properties:
+        password:
+          type: string
+          format: password
+        role:
+          $ref: '#/components/schemas/Role'

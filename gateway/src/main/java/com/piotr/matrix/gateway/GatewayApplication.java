@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDeta
 })
 public class GatewayApplication {
 
-    static void main(String[] args) {
+    public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);
     }
 

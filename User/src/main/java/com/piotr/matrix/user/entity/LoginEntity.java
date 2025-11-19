@@ -1,29 +1,21 @@
 package com.piotr.matrix.user.entity;
 
+import com.piotr.matrix.user.generated.model.Role;
+import jakarta.persistence.*;
+import lombok.*;
 
-import com.piotr.matrix.auth.generated.model.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+@Getter
 @Entity
-@Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "login")
 public class LoginEntity {
     @Id
+    @Setter
     private String email;
+    @Setter
     private String password;
+    @Setter()
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    public LoginEntity(@NotNull @Email String email, Role userRole) {
-        this.email = email;
-        this.role = userRole;
-        this.password = "todo";
-    }
 }

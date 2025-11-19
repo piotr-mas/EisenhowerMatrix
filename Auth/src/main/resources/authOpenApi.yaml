@@ -1,26 +1,20 @@
-openapi: 3.0.4
+openapi: '3.1.0'
 info:
   title: Auth Service
-  description: |-
-    Handle authentication and token issuance (JWT)
-  contact:
-    email: piotr.masior@outlook.com
-  license:
-    name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
-  #externalDocs:
-  #description: Find out more about Swagger
-  #url: https://swagger.io
+  version: '1.0.0'
+  description: Authenticate service to manage user profiles.
 servers:
-  - url: https://{server-url}
+  - url: https://{gateway-host}/auth
+    description: Public access to the Auth Service via the Gateway
     variables:
-      server-url:
-        default: "localhost:8088"
-
+      gateway-host:
+        default: "localhost:8080"
+        description: The host and port of the public-facing Spring Cloud Gateway
 paths:
-  /auth/login:
+  /login:
     post:
+      tags:
+        - Auth
       summary: Logs user into the system.
       description: Authenticate user and return JWT
       operationId: loginUser
@@ -55,8 +49,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AuthError"
-  /auth/logout:
+  /logout:
     post:
+      tags:
+        - Auth
       summary: Logs out current logged in user session.
       description: Invalidate current JWT token
       operationId: logoutUser
@@ -71,8 +67,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AuthError"
-  /auth/refresh:
+  /refresh:
     post:
+      tags:
+        - Auth
       summary: Refresh token – new token without login again
       description: New JWT token issued
       operationId: refreshToken

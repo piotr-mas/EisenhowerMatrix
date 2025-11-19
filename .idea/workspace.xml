@@ -4,42 +4,40 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09dd9df3-b213-4447-8a0d-a8f129c2bc98" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Auth/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Auth/src/main/resources/application-docker.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Auth/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/User/src/main/resources/application-docker.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/src/main/resources/application-docker.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ssl/gateway-keystore.p12" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ssl/gateway-truststore.jks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ssl/generate-mtls.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ssl/user-keystore.p12" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ssl/user-truststore.jks" afterDir="false" />
+    <list default="true" id="09dd9df3-b213-4447-8a0d-a8f129c2bc98" name="Changes" comment="Fixing mtls">
+      <change afterPath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/exception/InvalidClientRequestException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/exception/UserNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/User/src/test/java/com/piotr/matrix/user/service/UserServiceImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/src/main/resources/keystore.p12" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Auth/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Auth/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Auth/src/main/resources/auth.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/src/main/resources/authOpenApi.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/User/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/User/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/User/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/User/docker-compose-user.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/User/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/User/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/User/src/main/resources/ssl/user-keystore.p12" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/User/src/main/resources/ssl/user-truststore.jks" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/piotr/matrix/gateway/GatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/piotr/matrix/gateway/GatewayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/piotr/matrix/gateway/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/piotr/matrix/gateway/JwtAuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/User/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/entity/LoginEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/entity/LoginEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/repository/LoginRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/repository/LoginRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/User/src/main/java/com/piotr/matrix/user/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/src/main/resources/userApi.yaml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/piotr/matrix/gateway/config/GatewayConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/piotr/matrix/gateway/config/GatewayConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/ssl/gateway-keystore.p12" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/ssl/gateway-truststore.jks" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ssl/gateway-cert.cer" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ssl/user-cert.cer" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="OpenAPI" />
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -60,6 +58,9 @@
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -70,7 +71,16 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.UserServiceImplTest.whenGeneratePassword_returnPassword.executor": "Debug",
+    "Maven.Auth [clean].executor": "Run",
+    "Maven.Auth [compile].executor": "Run",
     "Maven.Auth [package].executor": "Run",
+    "Maven.User [clean].executor": "Run",
+    "Maven.User [compile].executor": "Run",
+    "Maven.User [install].executor": "Run",
+    "Maven.User [package].executor": "Run",
+    "Maven.gateway [clean].executor": "Run",
+    "Maven.gateway [compile].executor": "Run",
     "Maven.gateway [org.apache.maven.plugins:maven-clean-plugin:3.4.1:clean].executor": "Run",
     "Maven.gateway [package].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -78,6 +88,9 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/piotr/IdeaProjects/EisenhowerMatrix/Gateway/src/main/resources",
@@ -103,6 +116,12 @@
       <recent name="C:\Users\piotr\IdeaProjects\EisenhowerMatrix\Auth\src\main\resources\ssl" />
       <recent name="C:\Users\piotr\IdeaProjects\EisenhowerMatrix\Gateway\src\main\resources\ssl" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.piotr.matrix.user.service" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
@@ -114,7 +133,23 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AuthApplication">
+  <component name="RunManager" selected="JUnit.UserServiceImplTest.whenGeneratePassword_returnPassword">
+    <configuration name="UserServiceImplTest.whenGeneratePassword_returnPassword" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="User" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.piotr.matrix.user.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.piotr.matrix.user.service" />
+      <option name="MAIN_CLASS_NAME" value="com.piotr.matrix.user.service.UserServiceImplTest" />
+      <option name="METHOD_NAME" value="whenGeneratePassword_returnPassword" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -145,6 +180,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.UserServiceImplTest.whenGeneratePassword_returnPassword" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -153,6 +193,9 @@
         <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
       </set>
     </attachedChunks>
+  </component>
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Logical" />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -163,11 +206,37 @@
       <updated>1752076830953</updated>
       <workItem from="1752076832252" duration="524000" />
       <workItem from="1763292106491" duration="23848000" />
-      <workItem from="1763373313567" duration="17579000" />
+      <workItem from="1763373313567" duration="23593000" />
+      <workItem from="1763461411551" duration="38303000" />
+      <workItem from="1763563577044" duration="20123000" />
     </task>
+    <task id="LOCAL-00001" summary="Fixing mtls">
+      <option name="closed" value="true" />
+      <created>1763394231269</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1763394231269</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixing mtls" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing mtls" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/User/src/test/java/com/piotr/matrix/user/service/UserServiceImplTest.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -7,7 +7,8 @@ COPY User/ User/
 COPY Auth/ Auth/
 COPY Gateway/ Gateway/
 
-RUN mvn clean package -DskipTests -pl Auth -am
+RUN mvn clean package -DskipTests -pl Auth -am \
+    -DopenApiPath=/app/Auth/src/main/resources/authOpenApi.yaml
 
 # Stage 2: Run the JAR
 FROM eclipse-temurin:21-jdk

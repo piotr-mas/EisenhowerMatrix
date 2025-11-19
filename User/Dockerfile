@@ -8,7 +8,8 @@ COPY User/ User/
 COPY Auth/ Auth/
 COPY Gateway/ Gateway/
 # C. Explicitly build ONLY the User module from the root
-RUN mvn clean package -DskipTests -pl User -am
+RUN mvn clean package -DskipTests -pl User -am \
+    -Dopenapipath=/app/User/src/main/resources/userOpenApi.yaml
 
 # Stage 2: Run the JAR
 FROM eclipse-temurin:21-jdk

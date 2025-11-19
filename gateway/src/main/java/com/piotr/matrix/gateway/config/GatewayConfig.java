@@ -65,7 +65,7 @@ public class GatewayConfig {
         // --- 4. Configure Netty HttpClient ---
         return HttpClient.create()
                 .secure(ssl -> ssl.sslContext(sslContext)
-                        // ⚠️ FIX: Explicitly disable hostname verification for internal calls
+                        // FIX: Explicitly disable hostname verification for internal calls
                         .handlerConfigurator(sslHandler -> {
                             SSLEngine engine = sslHandler.engine();
                             SSLParameters params = engine.getSSLParameters();

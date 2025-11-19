@@ -28,6 +28,7 @@
     </scm>
     <properties>
         <java.version>21</java.version>
+        <openApiPath>src/main/resources/authOpenApi.yaml</openApiPath>
     </properties>
     <dependencies>
         <dependency>
@@ -144,7 +145,7 @@
                         </goals>
                         <configuration>
                             <!--Where the yaml is located-->
-                            <inputSpec>${project.basedir}/src/main/resources/auth.yaml</inputSpec>
+                            <inputSpec>${openApiPath}</inputSpec>
                             <!--Specifies the type of code generator to use-->
                             <generatorName>spring</generatorName>
                             <!--Where the generated files are located-->
@@ -157,17 +158,19 @@
                             <!--Model Structure from the out directly. Notice this ends with model-->
                             <modelPackage>com.piotr.matrix.auth.generated.model</modelPackage>
                             <configOptions>
+                                <useTags>true</useTags>
                                 <dateLibrary>java21</dateLibrary>
                                 <!--If set to false, then generate will do the controller impl, and we have to extend the delegate-->
                                 <!--we can then implement the interface in your own service classes.-->
                                 <interfaceOnly>true</interfaceOnly>
                                 <!--When true, it generates a separate delegate class for business logic instead of implementing logic directly in the API class.-->
                                 <!--This has event when interfaceOnly is FALSE-->
-                                <delegatePattern>false</delegatePattern>
+                                <delegatePattern>true</delegatePattern>
                                 <!--When true, API methods return ResponseEntity<T> instead of T-->
                                 <useResponseEntity>true</useResponseEntity>
                                 <useSpringBoot3>true</useSpringBoot3>
-                                <skipOverwrite>true</skipOverwrite>
+                                <skipOverwrite>false</skipOverwrite>
+                                <generateAliasAsModel>true</generateAliasAsModel>
                             </configOptions>
                         </configuration>
                     </execution>
