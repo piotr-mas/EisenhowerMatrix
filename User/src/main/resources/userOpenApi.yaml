@@ -111,13 +111,12 @@ paths:
     post:
       operationId: getUserPassword
       summary: Fetch user hashed password – internal API for Auth Services
-      parameters:
-        - name: email
-          in: path
-          required: true
-          schema:
-            type: string
-            format: email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Email'
       responses:
         '200':
           description: Token is valid
@@ -219,7 +218,14 @@ components:
         - MASTER
         - ADMIN
         - USER
-
+    Email:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
     User:
       type: object
       required:

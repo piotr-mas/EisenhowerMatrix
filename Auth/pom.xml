@@ -28,7 +28,8 @@
     </scm>
     <properties>
         <java.version>21</java.version>
-        <openApiPath>src/main/resources/authOpenApi.yaml</openApiPath>
+        <authOpenApiPath>src/main/resources/authOpenApi.yaml</authOpenApiPath>
+        <userOpenApiPath>User/src/main/resources/userOpenApi.yaml</userOpenApiPath>
     </properties>
     <dependencies>
         <dependency>
@@ -39,7 +40,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -101,7 +105,13 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.5</version> <!-- Use latest stable version -->
+            <version>42.7.7</version> <!-- Use latest stable version -->
+        </dependency>
+        <dependency>
+            <groupId>com.piotr.matrix</groupId>
+            <artifactId>User</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>
@@ -145,7 +155,7 @@
                         </goals>
                         <configuration>
                             <!--Where the yaml is located-->
-                            <inputSpec>${openApiPath}</inputSpec>
+                            <inputSpec>${authOpenApiPath}</inputSpec>
                             <!--Specifies the type of code generator to use-->
                             <generatorName>spring</generatorName>
                             <!--Where the generated files are located-->
@@ -170,6 +180,25 @@
                                 <useResponseEntity>true</useResponseEntity>
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <skipOverwrite>false</skipOverwrite>
+                                <generateAliasAsModel>true</generateAliasAsModel>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-user-models</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${userOpenApiPath}</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <output>${project.build.directory}/generated-sources/openapi</output>
+                            <modelPackage>com.piotr.matrix.user.generated.model</modelPackage>
+                            <apiPackage>com.piotr.matrix.user.generated.api</apiPackage>
+                            <generateApis>false</generateApis>
+                            <configOptions>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <interfaceOnly>true</interfaceOnly>
                                 <generateAliasAsModel>true</generateAliasAsModel>
                             </configOptions>
                         </configuration>

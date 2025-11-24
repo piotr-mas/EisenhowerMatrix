@@ -46,9 +46,4 @@ public class AuthServiceImp implements AuthService {
     private void authenticate(@NotNull @Email String email, @NotNull String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
     }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
 }

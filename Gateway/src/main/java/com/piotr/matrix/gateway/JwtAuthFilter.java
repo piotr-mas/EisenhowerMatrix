@@ -18,13 +18,14 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Component
 public class JwtAuthFilter implements GlobalFilter {
 
     private final JwtParser jwtParser;
-    private static final List<String> EXCLUDED_PATHS = List.of("/auth/login", "/api/auth/login", "/auth/register");
+    private static final List<String> EXCLUDED_PATHS = List.of("/login", "/register");
 
     public JwtAuthFilter(@Value("${jwt.secret}") String secret) {
         // Decode the Base64 String to bytes
@@ -47,6 +48,7 @@ public class JwtAuthFilter implements GlobalFilter {
         String authHeader = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         log.info("authHeader: {}", authHeader);
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            log.warn("Missing or invalid Authorization header for path: {}", path);
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
@@ -55,11 +57,10 @@ public class JwtAuthFilter implements GlobalFilter {
 
         try {
             Claims claims = jwtParser.parseClaimsJws(token).getBody();
-
             // Optionally forward claims to downstream services
             ServerHttpRequest mutatedRequest = exchange.getRequest().mutate()
                     .header("X-User-Id", claims.getSubject())
-                    .header("X-User-Roles", claims.get("roles", String.class))
+                    .header("X-User-Roles", claims.get("role", String.class))
                     .build();
 
             return chain.filter(exchange.mutate().request(mutatedRequest).build());
