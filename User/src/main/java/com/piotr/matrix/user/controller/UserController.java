@@ -15,9 +15,10 @@ import java.util.UUID;
 @RestController
 public class UserController implements DefaultApi {
 
-    private UserService userService;
+    private final UserService userService;
     @Autowired
     public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
@@ -77,8 +78,8 @@ public class UserController implements DefaultApi {
     }
 
     @Override
-    public ResponseEntity<UserLoginResponse> getUserPassword(String email) {
+    public ResponseEntity<UserLoginResponse> getUserPassword(Email email) {
         log.info("getUserPassword: {}", email);
-        return ResponseEntity.ok().body(userService.getUserLoginDetails(email));
+        return ResponseEntity.ok().body(userService.getUserLoginDetails(email.getEmail()));
     }
 }

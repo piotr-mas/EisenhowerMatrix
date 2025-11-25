@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserProfile> getAllUsers() {
+        log.info("getAllUsers");
         return userRepository.findAll().stream()
                 .map(entity -> {
                     var email = entity.getEmail();
@@ -80,6 +81,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserProfile getUserById(UUID id) {
+        log.info("getUserById: {}", id);
         var userEntity =  userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(USER_ID+ id));
         var loginEntity = loginRepository.findByEmail(userEntity.getEmail())

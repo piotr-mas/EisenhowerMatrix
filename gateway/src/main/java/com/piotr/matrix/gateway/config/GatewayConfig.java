@@ -25,11 +25,11 @@ import java.security.cert.CertificateException;
 public class GatewayConfig {
 
     // Inject the properties that worked in the legacy server config
-    @Value("file:/app/ssl/gateway-keystore.p12")
+    @Value("${server.ssl.key-store}")
     private Resource keyStore;
     @Value("${GATEWAY_STORE_PASSWORD}")
     private String keyStorePassword;
-    @Value("file:/app/ssl/gateway-truststore.jks")
+    @Value("${server.ssl.trust-store}")
     private Resource trustStore;
     @Value("${GATEWAY_TRUST_PASSWORD}")
     private String trustStorePassword;
