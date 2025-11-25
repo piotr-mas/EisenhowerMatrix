@@ -9,15 +9,15 @@ spring:
             - id: user-service
               uri: https:/ms-user:8081
               predicates:
-                - name: Path
-                  args:
-                    pattern: /user/**
+                - Path=/user/**
+              filters:
+                - StripPrefix=1
             - id: auth-service
               uri: https://ms-auth:8088
               predicates:
-                - name: Path
-                  args:
-                    pattern: /auth/**
+                - Path=/auth/**
+              filters:
+                - StripPrefix=1
 
 server:
   port: 8080
