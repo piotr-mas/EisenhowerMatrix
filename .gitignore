@@ -28,3 +28,12 @@ replay_pid*
 *.iws
 *.iml
 *.ipr
+
+## Project files ##
+/ssl/ca.crt
+/ssl/ca.key
+/ssl/ca.srl
+/ssl/gateway-keystore.p12
+/ssl/gateway-truststore.jks
+/ssl/user-keystore.p12
+/ssl/user-truststore.jks
