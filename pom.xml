@@ -61,7 +61,7 @@
 
     <modules>
         <module>ms-models</module> <!-- new shared DTO module -->
-        <module>Gateway</module>
+        <module>ms-gateway</module>
         <module>Auth</module>
         <module>User</module>
     </modules>
