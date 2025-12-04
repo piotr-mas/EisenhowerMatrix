@@ -1,0 +1,176 @@
+openapi: '3.1.0'
+info:
+  title: Common Schemas
+  version: 1.0.0
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: john@email.com
+        password:
+          type: string
+          format: password
+          example: "P@ssw0rd!"
+      required:
+        - email
+        - password
+    JwtTokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          format: jwt
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        tokenType:
+          type: string
+          example: "Bearer"
+        expiresIn:
+          type: integer
+          format: int64
+          example: 3600
+      required:
+        - accessToken
+        - tokenType
+    RefreshTokenRequest:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          format: jwt
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      required:
+        - refreshToken
+
+    MatrixError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+
+    Role:
+      type: string
+      enum:
+        - master
+        - admin
+        - user
+    Email:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+    User:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - role
+      properties:
+        firstName:
+          type: string
+          minLength: 2
+          maxLength: 20
+        lastName:
+          type: string
+          minLength: 2
+          maxLength: 20
+        email:
+          type: string
+          format: email
+        role:
+          $ref: '#/components/schemas/Role'
+    UserProfile:
+      type: object
+      required:
+        - id
+        - user
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        user:
+          $ref: '#/components/schemas/User'
+        createdAt:
+          type: string
+          format: date-time
+    UserRegistration:
+      type: object
+      required:
+        - user
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        password:
+          type: string
+          format: password
+    UserUpdate:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+    UserPasswordRequest:
+      type: object
+      required:
+        - oldPassword
+        - newPassword
+      properties:
+        oldPassword:
+          type: string
+          minLength: 8
+          format: password
+        newPassword:
+          type: string
+          minLength: 8
+          format: password
+    UserEmailRequest:
+      type: object
+      required:
+        - oldEmail
+        - newEmail
+      properties:
+        oldEmail:
+          type: string
+          minLength: 6
+          format: email
+        newEmail:
+          type: string
+          minLength: 6
+          format: email
+    UserRoleRequest:
+      type: object
+      required:
+        - oldRole
+        - newRole
+      properties:
+        oldRole:
+          $ref: '#/components/schemas/Role'
+        newRole:
+          $ref: '#/components/schemas/Role'
+    UserLoginResponse:
+      type: object
+      required:
+        - userId
+        - password
+        - role
+      properties:
+        userId:
+          type: string
+          format: uuid
+        password:
+          type: string
+          format: password
+        role:
+          $ref: '#/components/schemas/Role'

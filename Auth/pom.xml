@@ -28,7 +28,6 @@
     </scm>
     <properties>
         <java.version>21</java.version>
-        <openApiPath>src/main/resources/authOpenApi.yaml</openApiPath>
     </properties>
     <dependencies>
         <dependency>
@@ -101,9 +100,18 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.5</version> <!-- Use latest stable version -->
+            <version>42.7.7</version> <!-- Use latest stable version -->
         </dependency>
-
+        <!-- Shared DTO class from OpenApi-->
+        <dependency>
+            <groupId>com.piotr.matrix</groupId>
+            <artifactId>ms-models</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -144,38 +152,29 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <!--Where the yaml is located-->
-                            <inputSpec>${openApiPath}</inputSpec>
-                            <!--Specifies the type of code generator to use-->
+                            <!-- Auth endpoints -->
+                            <inputSpec>Auth/src/main/resources/authOpenApi.yaml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <!--Where the generated files are located-->
-                            <!--We can set this to "." where the location will be the root-->
-                            <!--<output>${project.basedir}/generated-sources/openapi</output>-->
-                            <!--If we use the above config, we can take the generated files outside the target. But then make sure to comment this after generating the stubs-->
                             <output>${project.build.directory}/generated-sources/openapi</output>
-                            <!--Structure from the out directly. Notice this ends with api-->
                             <apiPackage>com.piotr.matrix.auth.generated.api</apiPackage>
-                            <!--Model Structure from the out directly. Notice this ends with model-->
-                            <modelPackage>com.piotr.matrix.auth.generated.model</modelPackage>
+                            <modelPackage>com.piotr.matrix.generated.model</modelPackage>
+                            <generateApis>true</generateApis>
+                            <generateModels>false</generateModels>
+                            <generateSupportingFiles>true</generateSupportingFiles>
                             <configOptions>
                                 <useTags>true</useTags>
                                 <dateLibrary>java21</dateLibrary>
-                                <!--If set to false, then generate will do the controller impl, and we have to extend the delegate-->
-                                <!--we can then implement the interface in your own service classes.-->
                                 <interfaceOnly>true</interfaceOnly>
-                                <!--When true, it generates a separate delegate class for business logic instead of implementing logic directly in the API class.-->
-                                <!--This has event when interfaceOnly is FALSE-->
                                 <delegatePattern>true</delegatePattern>
-                                <!--When true, API methods return ResponseEntity<T> instead of T-->
                                 <useResponseEntity>true</useResponseEntity>
                                 <useSpringBoot3>true</useSpringBoot3>
-                                <skipOverwrite>false</skipOverwrite>
                                 <generateAliasAsModel>true</generateAliasAsModel>
                             </configOptions>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
             <!--To make sure the generated code is included in the project-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

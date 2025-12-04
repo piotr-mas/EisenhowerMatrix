@@ -1,6 +1,7 @@
 package com.piotr.matrix.auth.service;
 
-import com.piotr.matrix.auth.generated.model.JwtTokenResponse;
+
+import com.piotr.matrix.generated.model.JwtTokenResponse;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -13,6 +14,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Log4j2
 @Service
@@ -24,10 +26,11 @@ public class JwtServiceImp implements JwtService {
     private String secret;
 
     @Override
-    public JwtTokenResponse generateToken(String username, String password, String role) {
+    public JwtTokenResponse generateToken(String username, String password, String role, UUID userId) {
         log.debug("Generating JWT Token for user {}", username);
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
+        claims.put("userId", userId);
         var currentTimeMillis = new Date(System.currentTimeMillis());
         var expirationTimeMillis = new Date(System.currentTimeMillis() + expiration);
         var token = doGenerateToken(claims, username, currentTimeMillis, expirationTimeMillis);

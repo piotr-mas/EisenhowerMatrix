@@ -1,7 +1,7 @@
 package com.piotr.matrix.user.controller;
 
+import com.piotr.matrix.generated.model.*;
 import com.piotr.matrix.user.generated.api.DefaultApi;
-import com.piotr.matrix.user.generated.model.*;
 import com.piotr.matrix.user.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

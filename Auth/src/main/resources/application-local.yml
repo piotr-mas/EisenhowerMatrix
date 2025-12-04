@@ -1,0 +1,11 @@
+server:
+  port: 9088
+  ssl:
+    enabled: false
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+url:
+  ms-user: http://localhost:9081

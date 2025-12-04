@@ -10,4 +10,6 @@ import java.util.UUID;
 @Repository
 public interface LoginRepository extends JpaRepository<LoginEntity, UUID> {
     Optional<LoginEntity> findByEmail(String email);
+
+    void deleteByEmail(String email);
 }

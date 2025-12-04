@@ -1,6 +1,6 @@
 package com.piotr.matrix.user.entity;
 
-import com.piotr.matrix.user.generated.model.Role;
+import com.piotr.matrix.generated.model.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,7 +8,9 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "login")
+@Table(name = "login", uniqueConstraints = {
+        @UniqueConstraint(name="Login_Email", columnNames = "email")
+})
 public class LoginEntity {
     @Id
     @Setter

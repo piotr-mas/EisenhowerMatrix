@@ -24,7 +24,7 @@ server:
 
 # Externalize the JWT Secret. For production use environment variables or a secrets manager
 jwt:
-  secret: ${JWT_SECRET}
+  secret: ${JWT_SECRET:YV92ZXJ5X3NlY3VyZV9zZWNyZXRfa2V5X29mXzMyX2J5dGVzX29yX21vcmU=}
 # Logging configuration
 logging:
   level:

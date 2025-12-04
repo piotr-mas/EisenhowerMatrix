@@ -28,7 +28,6 @@
     </scm>
     <properties>
         <java.version>21</java.version>
-        <openapipath>src/main/resources/userOpenApi.yaml</openapipath>
     </properties>
     <dependencies>
         <dependency>
@@ -73,6 +72,15 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.piotr.matrix</groupId>
+            <artifactId>ms-models</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -113,45 +121,32 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <!--Where the yaml is located-->
-                            <inputSpec>${openapipath}</inputSpec>
-                             <!--Specifies the type of code generator to use-->
+                            <!-- User endpoints -->
+                            <!--<inputSpec>User/src/main/resources/userOpenApi.yaml</inputSpec>-->
+                            <inputSpec>${project.basedir}/src/main/resources/userOpenApi.yaml</inputSpec>
+                            <inputSpec>User/src/main/resources/userOpenApi.yaml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <!--Where the generated files are located-->
-                            <!--We can set this to "." where the location will be the root-->
-                            <!--<output>${project.basedir}/generated-sources/openapi</output>-->
-                            <!--If we use the above config, we can take the generated files outside the target. But then make sure to comment this after generating the stubs-->
                             <output>${project.build.directory}/generated-sources/openapi</output>
-                            <!--Structure from the out directly. Notice this ends with api-->
                             <apiPackage>com.piotr.matrix.user.generated.api</apiPackage>
-                            <!--Model Structure from the out directly. Notice this ends with model-->
-                            <modelPackage>com.piotr.matrix.user.generated.model</modelPackage>
-                            <typeMappings>
-                                <typeMapping>Role=Role</typeMapping>
-                            </typeMappings>
-                            <importMappings>
-                                <importMapping>Role=com.piotr.matrix.user.generated.model.Role</importMapping>
-                            </importMappings>
+                            <modelPackage>com.piotr.matrix.generated.model</modelPackage>
+                            <generateApis>true</generateApis>
+                            <generateModels>false</generateModels>
+                            <generateSupportingFiles>true</generateSupportingFiles>
                             <configOptions>
+                                <withSetters>true</withSetters>
                                 <useTags>true</useTags>
-                                <dateLibrary>java8-localdatetime</dateLibrary>
-                                <!--If set to false, then generate will do the controller impl, and we have to extend the delegate-->
-                                <!--we can then implement the interface in your own service classes.-->
+                                <dateLibrary>java21</dateLibrary>
                                 <interfaceOnly>true</interfaceOnly>
-                                <!--When true, it generates a separate delegate class for business logic instead of implementing logic directly in the API class.-->
-                                <!--This has event when interfaceOnly is FALSE-->
                                 <delegatePattern>true</delegatePattern>
-                                <!--When true, API methods return ResponseEntity<T> instead of T-->
                                 <useResponseEntity>true</useResponseEntity>
                                 <useSpringBoot3>true</useSpringBoot3>
-                                <skipOverwrite>c</skipOverwrite>
                                 <generateAliasAsModel>true</generateAliasAsModel>
                             </configOptions>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <!--To make sure the generated code is included in the project-->
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>

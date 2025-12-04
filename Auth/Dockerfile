@@ -3,6 +3,7 @@ FROM maven:3.9.4-eclipse-temurin-21 AS builder
 WORKDIR /app
 
 COPY pom.xml .
+COPY ms-models/ ms-models/
 COPY User/ User/
 COPY Auth/ Auth/
 COPY Gateway/ Gateway/

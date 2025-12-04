@@ -1,20 +1,23 @@
 package com.piotr.matrix.user.service;
 
+import com.piotr.matrix.generated.model.*;
 import com.piotr.matrix.user.entity.LoginEntity;
 import com.piotr.matrix.user.entity.UserEntity;
 import com.piotr.matrix.user.exception.InvalidClientRequestException;
 import com.piotr.matrix.user.exception.UserNotFoundException;
-import com.piotr.matrix.user.generated.model.*;
 import com.piotr.matrix.user.repository.LoginRepository;
 import com.piotr.matrix.user.repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.net.URI;
 import java.security.SecureRandom;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,15 +49,15 @@ public class UserServiceImpl implements UserService {
         var email = user.getUser().getEmail();
         var role = user.getUser().getRole();
         log.debug("Registering user {}", email);
+
         var loginEntity = new LoginEntity(email, hashedPassword, role);
         loginRepository.save(loginEntity);
 
         var firstName = user.getUser().getFirstName();
         var lastName = user.getUser().getLastName();
         var userEntity = new UserEntity(null, firstName, lastName, email, null);
-
-
         var newUser = userRepository.save(userEntity);
+
         return URI.create(USER_PATH +newUser.getId());
     }
 
@@ -102,8 +105,11 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteUser(UUID id) {
+        log.info("deleteUser: {}", id);
+        var userEntity =  userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(USER_ID+ id));
         userRepository.deleteById(id);
-        loginRepository.deleteById(id);
+        loginRepository.deleteByEmail(userEntity.getEmail());
     }
 
     @Override
@@ -112,12 +118,12 @@ public class UserServiceImpl implements UserService {
         var user = Optional.ofNullable(userUpdate.getUser())
                 .orElseThrow(() -> new InvalidClientRequestException("Invalid user update"));
 
-        var userDataFromDb =  userRepository.findById(id)
+        var userEntity =  userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(USER_ID+ id));
-        userDataFromDb.setFirstName(user.getFirstName());
-        userDataFromDb.setLastName(user.getLastName());
-        userDataFromDb.setEmail(user.getEmail());
-        userRepository.save(userDataFromDb);
+        userEntity.setFirstName(user.getFirstName());
+        userEntity.setLastName(user.getLastName());
+        userEntity.setEmail(user.getEmail());
+        userRepository.save(userEntity);
 
         var loginEntity = loginRepository.findByEmail(user.getEmail())
                 .orElseThrow(() -> new UserNotFoundException(EMAIL+ user.getEmail()));
@@ -128,9 +134,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserLoginResponse getUserLoginDetails(String email) {
+        var userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException(EMAIL+ email));
         var loginEntity = loginRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException(EMAIL + email));
+
         var loginResponse = new UserLoginResponse();
+        loginResponse.setUserId(userEntity.getId());
         loginResponse.setPassword(loginEntity.getPassword());
         loginResponse.setRole(loginEntity.getRole());
         return loginResponse;
@@ -144,6 +154,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByIdAndEmail(id, userEmailRequest.getOldEmail())) {
             var loginEntity =  loginRepository.findByEmail(userEmailRequest.getOldEmail())
                     .orElseThrow(() -> new UserNotFoundException(EMAIL + userEmailRequest.getOldEmail()));
+            loginRepository.deleteByEmail(userEmailRequest.getOldEmail());
             loginEntity.setEmail(userEmailRequest.getNewEmail());
             loginRepository.save(loginEntity);
 

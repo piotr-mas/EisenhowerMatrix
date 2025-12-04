@@ -36,19 +36,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AuthError"
+                $ref: "#/components/schemas/MatrixError"
         '403':
           description: User disabled
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AuthError"
+                $ref: "#/components/schemas/MatrixError"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AuthError"
+                $ref: "#/components/schemas/MatrixError"
   /logout:
     post:
       tags:
@@ -66,7 +66,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AuthError"
+                $ref: "#/components/schemas/MatrixError"
   /refresh:
     post:
       tags:
@@ -98,7 +98,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AuthError"
+                $ref: "#/components/schemas/MatrixError"
 
 components:
   securitySchemes:
@@ -106,56 +106,13 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-
   schemas:
     LoginRequest:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-          example: john@email.com
-        password:
-          type: string
-          format: password
-          example: "P@ssw0rd!"
-      required:
-        - email
-        - password
+      $ref: '../../../../ms-models/src/main/resources/common-api.yaml#/components/schemas/LoginRequest'
     JwtTokenResponse:
-      type: object
-      properties:
-        accessToken:
-          type: string
-          format: jwt
-          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-        tokenType:
-          type: string
-          example: "Bearer"
-        expiresIn:
-          type: integer
-          format: int64
-          example: 3600
-      required:
-        - accessToken
-        - tokenType
+      $ref: '../../../../ms-models/src/main/resources/common-api.yaml#/components/schemas/JwtTokenResponse'
+    MatrixError:
+      $ref: '../../../../ms-models/src/main/resources/common-api.yaml#/components/schemas/MatrixError'
     RefreshTokenRequest:
-      type: object
-      properties:
-        refreshToken:
-          type: string
-          format: jwt
-          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-      required:
-        - refreshToken
+      $ref: '../../../../ms-models/src/main/resources/common-api.yaml#/components/schemas/RefreshTokenRequest'
 
-    AuthError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-      required:
-        - code
-        - message

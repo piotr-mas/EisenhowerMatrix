@@ -1,10 +1,10 @@
 package com.piotr.matrix.auth.controller;
 
 import com.piotr.matrix.auth.generated.api.AuthApi;
-import com.piotr.matrix.auth.generated.model.JwtTokenResponse;
-import com.piotr.matrix.auth.generated.model.LoginRequest;
-import com.piotr.matrix.auth.generated.model.RefreshTokenRequest;
 import com.piotr.matrix.auth.service.AuthService;
+import com.piotr.matrix.generated.model.JwtTokenResponse;
+import com.piotr.matrix.generated.model.LoginRequest;
+import com.piotr.matrix.generated.model.RefreshTokenRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -16,8 +16,15 @@ server:
 
 jwt:
   expiration: 6000000
-  secret: ${JWT_SECRET}
+  secret: ${JWT_SECRET:VGhpc0lzQVVuaXRUZXN0U2VjcmV0S2V5T2YzMkJ5dGVzIQ==}
 
 admin:
   username: admin@matrix.com
   password: bewrOoaRMzDByw7xz8WQYZYR43l5Gd/aAabyRLVkEyk=
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+url:
+  ms-user: https://ms-user:8081

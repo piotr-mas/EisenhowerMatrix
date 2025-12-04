@@ -4,6 +4,7 @@ WORKDIR /app
 # A. Copy the parent pom.xml
 COPY pom.xml .
 # B. Copy ALL module folders listed in the parent pom
+COPY ms-models/ ms-models/
 COPY User/ User/
 COPY Auth/ Auth/
 COPY Gateway/ Gateway/

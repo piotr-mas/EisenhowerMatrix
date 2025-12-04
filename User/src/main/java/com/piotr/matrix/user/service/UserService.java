@@ -1,6 +1,5 @@
 package com.piotr.matrix.user.service;
-
-import com.piotr.matrix.user.generated.model.*;
+import com.piotr.matrix.generated.model.*;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;

@@ -1,0 +1,4 @@
+server:
+  port: 9081
+  ssl:
+    enabled: false
