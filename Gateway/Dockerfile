@@ -1,6 +1,10 @@
 # Stage 1: Build the JAR
-FROM maven:3.9.4-eclipse-temurin-21 AS builder
+FROM eclipse-temurin:25-jdk AS builder
 WORKDIR /app
+
+RUN apt-get update && \
+    apt-get install -y maven && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY pom.xml .
 COPY ms-models/ ms-models/
@@ -11,7 +15,7 @@ COPY Gateway/ Gateway/
 RUN mvn clean package -DskipTests -pl Gateway -am
 
 # Stage 2: Run the JAR
-FROM eclipse-temurin:21-jdk
+FROM eclipse-temurin:25-jdk
 # Set working directory
 WORKDIR /app
 # Copy the built JAR file into the container

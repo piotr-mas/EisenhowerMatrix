@@ -21,7 +21,6 @@ public class AuthServiceImp implements AuthService {
 
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final PasswordEncoder passwordEncoder;
 
     @Value("${admin.username}")
     private String adminUser;
@@ -32,14 +31,13 @@ public class AuthServiceImp implements AuthService {
     public AuthServiceImp(JwtService jwtService, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder) {
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public JwtTokenResponse handleUserValidation(LoginRequest loginRequest) {
         log.info("Login Request: {}.", loginRequest);
-        if (adminUser.equals(loginRequest.getEmail()) && adminPassword.equals(loginRequest.getPassword()) &&
-                passwordEncoder.matches(loginRequest.getPassword(), adminPassword)) {
+        if (adminUser.equals(loginRequest.getEmail()) && adminPassword.equals(loginRequest.getPassword())
+        ) {
             return jwtService.generateToken(loginRequest.getEmail(), loginRequest.getPassword(), "master", null);
         } else {
             authenticate(loginRequest.getEmail(), loginRequest.getPassword());

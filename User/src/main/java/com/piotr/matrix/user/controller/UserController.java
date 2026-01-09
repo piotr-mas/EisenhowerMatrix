@@ -1,18 +1,19 @@
 package com.piotr.matrix.user.controller;
 
+import module java.base;
 import com.piotr.matrix.generated.model.*;
 import com.piotr.matrix.user.generated.api.DefaultApi;
 import com.piotr.matrix.user.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.UUID;
 
 @Log4j2
 @RestController
+@RequestMapping("/user")
 public class UserController implements DefaultApi {
 
     private final UserService userService;
